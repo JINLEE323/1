@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>엉터리 한국어 바로잡기</title>
+    <link rel="stylesheet" type="text/css" href="fff.css" ><link rel="stylesheet" href="src/jquery.custombox.css">
+
+
+</head>
+<body>
+   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="src/jquery.custombox.js"></script>
+
+ <div class="contentsWrap">
+   <div class="btnBox">
+     <button class="popOpenBtnCmmn" type="button" data-num="1">팝업1</button>
+     <button class="popOpenBtnCmmn" type="button" data-num="2">팝업2</button>
+     <button class="popOpenBtnCmmn" type="button" data-num="3">팝업3</button>
+   </div>
+ </div>
+ 
+   <div id="popUp_1" class="popCmmn">
+     <div class="popBg" data-num="1"></div>
+     <div class="popInnerBox">
+       <div class="popHead">팝업1의 제목입니다.</div>
+       <div class="popBody">팝업1의 내용입니다.</div>
+       <div class="popFoot">
+         <button class="popCloseBtnCmmn" type="button" data-num="1">확인</button>
+       </div>
+     </div>
+   </div>
+   
+ 
+   <div id="popUp_2" class="popCmmn">
+     <div class="popBg" data-num="2"></div>
+     <div class="popInnerBox">
+       <div class="popHead">팝업2의 제목입니다.</div>
+       <div class="popBody">팝업2의 내용입니다.</div>
+       <div class="popFoot">
+         <button class="popCloseBtnCmmn" type="button" data-num="2">확인</button>
+       </div>
+     </div>
+   </div>
+   
+ 
+   <div id="popUp_3" class="popCmmn">
+     <div class="popBg" data-num="3"></div>
+     <div class="popInnerBox">
+       <div class="popHead">팝업3의 제목입니다.</div>
+       <div class="popBody">팝업3의 내용입니다.</div>
+       <div class="popFoot">
+         <button class="popCloseBtnCmmn" type="button" data-num="3">확인</button>
+       </div>
+     </div>
+   </div>
+
+    <script src="anime.min.js"></script>
+    <script>
+     const container = document.querySelector('.text')
+     for (var i = 0; i <= 100; i++){
+      const blocks = document.createElement('div');
+      blocks.classList.add('block');
+      container.appendChild(blocks);
+     }
+
+     function animateBlocks(){
+      anime({
+       targets: '.text',
+       translateX: function(){
+        return anime.random(-600,600);
+       },
+       translateY: function(){
+        return anime.random(-300,300);
+       },
+       scale: function(){
+        return anime.random(1,1.3);
+       },
+
+       easing: 'linear',
+       duration: 4000,
+       delay: anime.stagger(10),
+       complete: animateBlocks,
+      })
+     }
+
+     animateBlocks()
+    </script>
+    <script>
+$(document).ready(function(){
+     $("#text").click(function(){
+         $("#popup").fadeIn();
+     });
+     $("#popup").click(function(){
+         $("#popup").fadeOut();
+     });
+});
+</script>
+<script>
+$(function(){
+  setPop();
+});
+
+
+// 팝업 세팅
+function setPop() {
+  var popOpenBtn = $('.popOpenBtnCmmn');
+  
+  //팝업 열기
+  popOpenBtn.on('click',function(){
+    var clickNum = $(this).attr('data-num');
+    
+    $('#popUp_'+clickNum).fadeIn(200);
+  })
+  
+  //팝업 닫기
+  $('.popBg, .popCloseBtnCmmn').on('click',function(){
+    var clickNum = $(this).attr('data-num');
+    
+    $('#popUp_'+clickNum).fadeOut(200);
+  })
+}
+
+</script>
+  </body>
+</html>
